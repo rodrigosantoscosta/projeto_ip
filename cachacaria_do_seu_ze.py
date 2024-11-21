@@ -27,19 +27,65 @@ def tome_um_conselho():
             return None
     except Exception as e:
         
-        print(f"Erro na requisição da API: {e}")
+        logger.exception(f"Erro na requisição da API: {e}")
         
         return None
+    
+def salva_conselhos(lista, arquivo):
+    with open(arquivo, 'a') as conteudoArquivo: 
+        conteudoArquivo.write(lista)
 
 
 def exibir_menu():
+    
+    print('--------------------------------------')
     print('**** MENU DA CACHAÇARIA DO SEU ZÉ *****')
+    print('1 - Selecionar numero de conselhos')
+    print('2 - Exibir conselhos')
+    print('3 - Salvar conselhos num arquivo de texto')
+    print('4 - Traduzir os conselhos do ingles para o portugues')
+    print('0 - Sair do programa')
     print('--------------------------------------')
-    print('1 - Selecionar numero de conselhos\n2 - Exibir conselhos\n4 - Salvar conselhos num arquivo de texto\n5 - Traduzir os conselhos do ingles para o portugues')
-    print('--------------------------------------')
+    
 if __name__ == "__main__":
-    print(tome_um_conselho())
+    # print(tome_um_conselho())
     conselhos = []
-    texto = 'Hello World!'
-    print(traduzir(texto))
-    exibir_menu()
+    # texto = 'Hello World!'
+    # print(traduzir(texto))
+    # exibir_menu()
+    status = -1
+
+    while status != 0:
+        exibir_menu()
+        status = int(input('Digite a opção desejada: '))
+       
+        match status:
+            case 1:
+                try:
+                    numero_de_conselhos = int(input('Quantos conselhos você vai querer?: '))
+        
+                    for i in range(numero_de_conselhos):
+                        conselhos.append(tome_um_conselho())
+
+                except Exception as e:
+                    logger.exception(f"Erro! Tente novamente um valor válido: {e}")
+
+            case 2:
+                print('Lista de conselhos:\n')
+                for conselho in conselhos:
+                    print(conselho)
+            
+            case 4:
+                traduzidos = []
+                
+                for i in range(len(conselhos)):
+                    texto = conselhos[i]
+                    traduzidos.append(traduzir(texto))
+                print('Conselhos traduzidos:\n')
+                for traduzido in traduzidos:
+                    print(traduzido)
+            
+            case 0:
+                status = 0
+    
+    print('Obrigado por visitar a Cachaçaria do seu Zé!')
