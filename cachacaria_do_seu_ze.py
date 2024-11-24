@@ -31,11 +31,11 @@ def tome_um_conselho():
         
         return None
     
-def salva_conselhos(lista, arquivo):
-    with open(arquivo, 'a') as conteudoArquivo: 
-        conteudoArquivo.write(lista)
-
-
+def salva_conselhos(arquivo, conselhos):
+    with open(arquivo, 'a') as a:
+        for conselho in conselhos:  
+            a.write(conselho)
+        
 def exibir_menu():
     
     print('--------------------------------------')
@@ -53,6 +53,7 @@ if __name__ == "__main__":
     # texto = 'Hello World!'
     # print(traduzir(texto))
     # exibir_menu()
+    arquivo_conselhos ='conselhos.txt'
     status = -1
 
     while status != 0:
@@ -74,7 +75,7 @@ if __name__ == "__main__":
                 print('Lista de conselhos:\n')
                 for conselho in conselhos:
                     print(conselho)
-            
+                        
             case 4:
                 traduzidos = []
                 
@@ -84,6 +85,8 @@ if __name__ == "__main__":
                 print('Conselhos traduzidos:\n')
                 for traduzido in traduzidos:
                     print(traduzido)
+            case 3:
+                salva_conselhos(arquivo_conselhos, conselhos)        
             
             case 0:
                 status = 0
