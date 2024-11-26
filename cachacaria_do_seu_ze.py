@@ -38,14 +38,14 @@ def salva_conselhos(arquivo, conselhos):
         
 def exibir_menu():
     
-    print('--------------------------------------')
+    print('---------------------------------------')
     print('**** MENU DA CACHAÇARIA DO SEU ZÉ *****')
     print('1 - Selecionar numero de conselhos')
     print('2 - Exibir conselhos')
     print('3 - Salvar conselhos num arquivo de texto')
     print('4 - Traduzir os conselhos do ingles para o portugues')
     print('0 - Sair do programa')
-    print('--------------------------------------')
+    print('----------------------------------------')
     
 if __name__ == "__main__":
     # print(tome_um_conselho())
