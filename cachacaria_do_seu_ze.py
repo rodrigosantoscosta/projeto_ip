@@ -23,7 +23,7 @@ def tome_um_conselho():
             return (f'{id} - {conselho}')
         
         else:
-            print("Erro ao tentar gerar conselho.")
+            logger.error("Erro ao tentar gerar conselho.")
             
             return None
     except Exception as e:
@@ -33,9 +33,13 @@ def tome_um_conselho():
         return None
     
 def salva_conselhos(arquivo, conselhos):
-    with open(arquivo, 'a') as a:
-        for conselho in conselhos:  
-            a.writelines(conselho + '\n')
+    try:
+        with open(arquivo, 'a', encoding='UTF-8') as a:
+            for conselho in conselhos:
+                a.writelines(conselho + '\n')
+        logger.info(f"Conselhos salvos no'{arquivo}'")
+    except Exception as e:
+        logger.error(f"Erro ao salvar conselhos no arquivo '{arquivo}': {e}")
         
 def exibir_menu():
     
@@ -76,7 +80,7 @@ if __name__ == "__main__":
                 print('Lista de conselhos:\n')
                 for conselho in conselhos:
                     print(conselho)
-                        
+
             case 4:
                 traduzidos = []
                 
@@ -91,5 +95,7 @@ if __name__ == "__main__":
             
             case 0:
                 status = 0
+            case _:
+                logger.error("Opção inválida. Escolha uma opção do menu!")        
     
     print('Obrigado por visitar a Cachaçaria do seu Zé!')
