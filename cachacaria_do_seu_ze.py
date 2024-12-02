@@ -2,6 +2,8 @@ import loguru
 import requests
 from deep_translator import GoogleTranslator
 from loguru import logger
+import os 
+import time
 
 # # Use any translator you like, in this example GoogleTranslator
 # translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
@@ -40,6 +42,17 @@ def salva_conselhos(arquivo, conselhos):
         logger.info(f"Conselhos salvos no'{arquivo}'")
     except Exception as e:
         logger.error(f"Erro ao salvar conselhos no arquivo '{arquivo}': {e}")
+
+def lembrar_conselhos(arquivo):
+    print('Estou lembrando da sabedoria dos anciões anglófonos')
+    if os.path.exists(arquivo):
+        with open (arquivo,'r') as file:
+            arquivo_existe = file.read()
+            arquivo_existe = arquivo_existe.splitlines()
+        
+        return arquivo_existe
+    else:
+        return('Ei Zé o arquivo não existe, por favor salvar alguma mensagem no texto!')
         
 def exibir_menu():
     
@@ -49,6 +62,7 @@ def exibir_menu():
     print('2 - Exibir conselhos')
     print('3 - Salvar conselhos num arquivo de texto')
     print('4 - Traduzir os conselhos do ingles para o portugues')
+    print('5 - Traduzir os conselhos salvos')
     print('0 - Sair do programa')
     print('----------------------------------------')
     
@@ -92,7 +106,11 @@ if __name__ == "__main__":
                     print(traduzido)
             case 3:
                 salva_conselhos(arquivo_conselhos, conselhos)        
-            
+            case 5:
+                sabedoria_adquidira = lembrar_conselhos(arquivo_conselhos)
+                for i in range(len(sabedoria_adquidira)):
+                    print(traduzir(sabedoria_adquidira[i]))
+                
             case 0:
                 status = 0
             case _:
