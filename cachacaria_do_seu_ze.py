@@ -18,8 +18,9 @@ def tome_um_conselho():
     try:
         response = requests.get('https://api.adviceslip.com/advice')
         if response.status_code == 200:
-            
-            return (response.json()['slip']['advice'])
+            id = response.json()['slip']['id']
+            conselho = response.json()['slip']['advice']
+            return (f'{id} - {conselho}')
         
         else:
             print("Erro ao tentar gerar conselho.")
@@ -34,7 +35,7 @@ def tome_um_conselho():
 def salva_conselhos(arquivo, conselhos):
     with open(arquivo, 'a') as a:
         for conselho in conselhos:  
-            a.write(conselho)
+            a.writelines(conselho + '\n')
         
 def exibir_menu():
     
